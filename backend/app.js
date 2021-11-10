@@ -1,5 +1,6 @@
 const express = require('express'); // import d'express
 const mongoose = require('mongoose'); // import de mongoose
+const path = require('path') // import du chemin pour les images
 
 const userRoutes = require('./routes/user.routes'); // import de la route User
 const sauceRoutes = require('./routes/sauce.routes'); // import de la route Sauce
@@ -21,6 +22,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
