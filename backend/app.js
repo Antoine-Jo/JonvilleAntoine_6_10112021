@@ -2,6 +2,7 @@ const express = require('express'); // import d'express
 const mongoose = require('mongoose'); // import de mongoose
 
 const userRoutes = require('./routes/user.routes'); // import de la route User
+const sauceRoutes = require('./routes/sauce.routes'); // import de la route Sauce
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
+
 
 module.exports = app;
