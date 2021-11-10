@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt'); // import du package Bcrypt pour le mdp
+const jwt = require('jsonwebtoken'); // import du cryptage du token d'authentification
 
 const User = require('../models/User.models'); // import de l'UserSchema
 
@@ -17,5 +18,26 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-    
+    User.findOne({ email: req.body.email }) // On récupère l'user de la BDD qui correspond à l'adresse mail entrée
+        .then(user => {
+            if (!user) { // si l'email est pas bon on renvoit une erreur
+                return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+            }
+            bcrypt.compare(req.body.password, user.password) // On compare le mot de passe entrée avec le hash de la BDD
+                .then(valid => {
+                    if (!valid) { // Si la comparaison est mauvaise, on renvoit une erreur
+                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                    }
+                    res.status(200).json({ // Si la comparaison est OK, on renvoit au frontend son userId et son token d'authentification
+                        userId: user._id,
+                        token: jwt.sign( // sign de jsonwebtoken permet d'encoder un nouveau token
+                           { userId: user._id }, // userId données encodées dans le token
+                           'RANDOM_TOKEN_SECRET', // chaine de caractère aléatoire bcp plus longue pour la production
+                           { expiresIn: '24h' } // durée de validité du token (il devra donc se reconnecter quand il arrive à expiration)
+                        )
+                    });
+                })
+                .catch(error => res.status(500).json({ error }))
+        })
+        .catch(error => res.status(500).json({ error }));
 }
