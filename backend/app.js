@@ -1,5 +1,15 @@
-// Utilisation d'Express
-const express = require('express');
+const express = require('express'); // import d'express
+const mongoose = require('mongoose'); // import de mongoose
+
+const userRoutes = require('./routes/user.routes'); // import de la route User
+
+
+
+mongoose.connect('mongodb+srv://Antoine:DarkSidious10@cluster0.fklwd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+{ useNewUrlParser: true,
+  useUnifiedTopology: true })
+.then(() => console.log('Connexion à MongoDB réussie !'))
+.catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 
@@ -28,5 +38,8 @@ app.use((req, res, next) => {
 app.use((req, res) => {
     console.log('Réponse envoyée avec succès !');
 })
+
+
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
