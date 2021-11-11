@@ -1,4 +1,5 @@
 const express = require('express'); // import d'express
+const helmet = require('helmet'); // import de Helmet
 const mongoose = require('mongoose'); // import de mongoose
 const path = require('path') // import du chemin pour les images
 
@@ -6,6 +7,8 @@ const userRoutes = require('./routes/user.routes'); // import de la route User
 const sauceRoutes = require('./routes/sauce.routes'); // import de la route Sauce
 
 const app = express();
+
+app.use(helmet());
 
 mongoose.connect('mongodb+srv://Antoine:darksidious10@cluster0.fklwd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
 { useNewUrlParser: true,
