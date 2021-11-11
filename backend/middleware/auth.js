@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken') // import de jsonWebToken pour vérifier les tokens
+require("dotenv").config();
+
 
 module.exports = (req, res, next) => {
     try {
