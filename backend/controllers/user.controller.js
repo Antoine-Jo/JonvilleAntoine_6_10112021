@@ -32,7 +32,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign( // sign de jsonwebtoken permet d'encoder un nouveau token
                            { userId: user._id }, // userId données encodées dans le token
-                           'RANDOM_TOKEN_SECRET', // chaine de caractère aléatoire bcp plus longue pour la production
+                           process.env.SECRET, // chaine de caractère aléatoire bcp plus longue pour la production
                            { expiresIn: '24h' } // durée de validité du token (il devra donc se reconnecter quand il arrive à expiration)
                         )
                     });

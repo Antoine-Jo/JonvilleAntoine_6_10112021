@@ -10,7 +10,7 @@ const app = express();
 
 app.use(helmet());
 
-mongoose.connect('mongodb+srv://Antoine:darksidious10@cluster0.fklwd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(process.env.DATABASE,
 { useNewUrlParser: true,
   useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))

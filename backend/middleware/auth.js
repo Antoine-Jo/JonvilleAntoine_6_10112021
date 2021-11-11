@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken') // import de jsonWebToken pour vérifier les
 module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1]; // extrait le token du header "Authorization" de la requête entrante. Split permet de récupérer tout après Bearer
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // verify permet de décoder notre token
+        const decodedToken = jwt.verify(token, process.env.SECRET); // verify permet de décoder notre token
         const userId = decodedToken.userId; // extraire l'ID de notre token
         if (req.body.userId && req.body.userId !== userId) { // comparons l'ID user à celui extrait
             throw 'User ID non valable !'; // erreur si c'est pas le cas
