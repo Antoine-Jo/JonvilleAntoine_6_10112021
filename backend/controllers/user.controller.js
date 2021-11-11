@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt'); // import du package Bcrypt pour le mdp
 const jwt = require('jsonwebtoken'); // import du cryptage du token d'authentification
-
+require("dotenv").config();
 const User = require('../models/User.models'); // import de l'UserSchema
 
 exports.signup = (req, res, next) => {
