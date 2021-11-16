@@ -1,8 +1,17 @@
 const bcrypt = require('bcrypt'); // import du package Bcrypt pour le mdp
 const jwt = require('jsonwebtoken'); // import du cryptage du token d'authentification
-require("dotenv").config();
 const User = require('../models/User.models'); // import de l'UserSchema
 
+/** 
+ * création d'un compte
+ * @param   {Object}   req                la requête
+ * @param   {Object}   req.body           le corps de la requete
+ * @param   {String}   req.body.password  User's password.
+ * @param   {String}   req.body.email     l'email de l'utilisateur.
+ * @param   {Object}   res                la réponse
+ * @param   {Function} [next]             l'étape suivante
+ * @returns {void}                        envoie une réponse
+ */
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 15) // 15 étant le nombre de fois que le mdp va être hashé, plus ce chiffre est élévé plus c'est sécure mais long à réaliser
         .then(hash => {

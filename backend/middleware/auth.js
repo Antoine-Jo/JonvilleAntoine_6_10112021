@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken') // import de jsonWebToken pour vérifier les tokens
-require("dotenv").config();
 
 
 module.exports = (req, res, next) => {
@@ -9,9 +8,8 @@ module.exports = (req, res, next) => {
         const userId = decodedToken.userId; // extraire l'ID de notre token
         if (req.body.userId && req.body.userId !== userId) { // comparons l'ID user à celui extrait
             throw 'User ID non valable !'; // erreur si c'est pas le cas
-        } else {
-            next(); // Si tout est bon, passe au middleware suivant
-        }
+        } 
+        next(); // Si tout est bon, passe au middleware suivant
     } 
     catch (error) {
         res.status(401).json({ error: error | 'Requête non authentifiée !' });

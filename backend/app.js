@@ -2,7 +2,6 @@ const express = require('express'); // import d'express
 const helmet = require('helmet'); // import de Helmet
 const mongoose = require('mongoose'); // import de mongoose
 const path = require('path') // import du chemin pour les images
-require("dotenv").config();
 const userRoutes = require('./routes/user.routes'); // import de la route User
 const sauceRoutes = require('./routes/sauce.routes'); // import de la route Sauce
 

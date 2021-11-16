@@ -17,6 +17,7 @@ exports.createSauce = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
+
 exports.modifySauce = (req, res, next) => {
     const sauceObject = req.file ?
         {                                       // Si on modifie l'image, on récupère la chaine de caractère de la sauce et on la parse en objet, et on modifie l'imageUrl
