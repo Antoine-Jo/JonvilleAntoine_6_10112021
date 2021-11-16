@@ -10,7 +10,7 @@ const User = require('../models/User.models'); // import de l'UserSchema
  * @param   {String}   req.body.email     l'email de l'utilisateur.
  * @param   {Object}   res                la réponse
  * @param   {Function} [next]             l'étape suivante
- * @returns {void}                        envoie une réponse
+ * @return  {void}                        envoie une réponse
  */
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 15) // 15 étant le nombre de fois que le mdp va être hashé, plus ce chiffre est élévé plus c'est sécure mais long à réaliser
@@ -26,6 +26,21 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+/**
+ * @typedef {import("../models/User.models").FicheUser} FicheUser
+ */
+
+/**
+ * [login description]
+ *
+ * 
+ * @param   {Object}    req.body            le corps de la requête
+ * @param   {FicheUser} req                 la fiche de l'utilisateur
+ * @param   {Object}    res                 la réponse
+ * @param   {Function}  [next]              l'étape suivante
+ *
+ * @return  {Object}                        retourne un userId encodées dans le token
+ */
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email }) // On récupère l'user de la BDD qui correspond à l'adresse mail entrée
         .then(user => {
