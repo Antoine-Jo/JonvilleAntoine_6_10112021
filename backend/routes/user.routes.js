@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userCtrl = require("../controllers/user.controller");
+const checkPassword = require("../middleware/check-password");
 
 /**
  * @openapi
@@ -34,7 +35,7 @@ const userCtrl = require("../controllers/user.controller");
  *              msg:
  *                 type: "string"
  */
-router.post("/signup", userCtrl.signup);
+router.post("/signup", checkPassword, userCtrl.signup);
 router.post("/login", userCtrl.login);
 
 module.exports = router;

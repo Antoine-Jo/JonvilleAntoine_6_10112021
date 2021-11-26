@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { isEmail } = require('validator');
 const uniqueValidator = require('mongoose-unique-validator');
 
 
@@ -11,7 +12,7 @@ const uniqueValidator = require('mongoose-unique-validator');
  * @property    {String}    password    mot de passe de l'utilisateur
  */
 const userSchema = mongoose.Schema({
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, validate: [isEmail], unique: true },
     password: { type: String, required: true }
 });
 

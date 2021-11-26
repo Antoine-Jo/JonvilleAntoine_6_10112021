@@ -20,9 +20,10 @@ exports.signup = (req, res, next) => {
                 password: hash
             });
             user.save() // Fonction qui va enregistrer l'utilisateur dans la BDD
-                .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-                .catch(error => res.status(400).json({ error }));
+            .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+            .catch(error => res.status(400).json({ error }));
         })
+        
         .catch(error => res.status(500).json({ error }));
 };
 
